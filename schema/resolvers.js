@@ -57,6 +57,18 @@ const resolvers = {
             return game;
         },
 
+        updateGame(_, args) {
+            db.games = db.games.map((g) => {
+                if (g.id === args.gameId) {
+                    g = { ...g, ...args.updates }
+                }
+
+                return g;
+            })
+
+            return db.games.find((g) => g.id === args.gameId);
+        },
+
         deleteGame(_, args) {
             return db.games.filter((g) => g.id !== args.gameId);
         }
