@@ -48,6 +48,19 @@ const resolvers = {
             return db.authors.find((a) => a.id === parent.authorId);
         }
     },
+
+    Mutation: {
+        addGame(_, args) {
+            const game = { id: JSON.stringify(db.games.length), ...args.game };
+
+            db.games.push(game);
+            return game;
+        },
+
+        deleteGame(_, args) {
+            return db.games.filter((g) => g.id !== args.gameId);
+        }
+    }
 };
 
 export default resolvers;                            
